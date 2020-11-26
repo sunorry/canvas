@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
     固定帧动画:css animation
     <div class="bird"></div>
@@ -19,9 +20,24 @@
     <div class="block"></div>
   </div>
   <div>
-    插值
-    <div ref="cz" class="sq" @click="czAnim" style="position: absolute">123</div>
+    插值: 点击运行
+    <div class="sqw">
+      <div ref="cz" class="sq" @click="czAnim" style="position: absolute"></div>
+    </div>
   </div>
+  <div>
+    加速：点击运行
+    <div style="position: relative" class="sqw">
+      <div ref="js" class="sq" @click="jsAnim" style="position: absolute"></div>
+    </div>
+  </div>
+  <div>
+    减速：点击运行
+    <div style="position: relative" class="sqw">
+      <div ref="jsd" class="sq" @click="jsdAnim" style="position: absolute"></div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -34,6 +50,8 @@ export default defineComponent({
     const block = ref<HTMLDivElement>()
     const time = ref<HTMLDivElement>()
     const cz = ref<HTMLDivElement>()
+    const js = ref<HTMLDivElement>()
+    const jsd = ref<HTMLDivElement>()
 
     function czAnim() {
       const block = cz.value!
@@ -42,10 +60,46 @@ export default defineComponent({
         {
           el: block,
           start: 100,
-          end: 400
+          end: 800
         },
         ({ target, timing }: { target: any; timing: any }) => {
           const left = target.start * (1 - timing.p) + target.end * timing.p
+          target.el.style.left = `${left}px`
+          console.log(target.el, left)
+        }
+      )
+    }
+
+    function jsAnim() {
+      const block = js.value!
+      const animator = new Animator({ duration: 300, iterations: 1 })
+      animator.animate(
+        {
+          el: block,
+          start: 100,
+          end: 800
+        },
+        ({ target, timing }: { target: any; timing: any }) => {
+          const p = timing.p ** 2
+          const left = target.start * (1 - p) + target.end * p
+          target.el.style.left = `${left}px`
+          console.log(target.el, left)
+        }
+      )
+    }
+
+    function jsdAnim() {
+      const block = jsd.value!
+      const animator = new Animator({ duration: 300, iterations: 1 })
+      animator.animate(
+        {
+          el: block,
+          start: 100,
+          end: 800
+        },
+        ({ target, timing }: { target: any; timing: any }) => {
+          const p = timing.p * ( 2 - timing.p)
+          const left = target.start * (1 - p) + target.end * p
           target.el.style.left = `${left}px`
           console.log(target.el, left)
         }
@@ -92,7 +146,11 @@ export default defineComponent({
       block,
       time,
       cz,
-      czAnim
+      czAnim,
+      js,
+      jsd,
+      jsdAnim,
+      jsAnim
     }
   }
 })
@@ -127,6 +185,13 @@ export default defineComponent({
   margin: 20px;
   transform-origin: 50% 50%;
   background: blue;
+}
+
+.sqw {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .container {
