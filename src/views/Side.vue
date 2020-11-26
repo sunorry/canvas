@@ -1,5 +1,5 @@
 <template>
-  <ul style="padding: 10px;">
+  <ul style="padding: 10px; width: 200px">
     <li v-for="item in links" :key="item.id">
       <b>{{ item.title }}</b>
       <ul>
@@ -23,6 +23,11 @@ export default defineComponent({
           title: 'math',
           id: 1,
           children: [
+            {
+              title: '向量树',
+              id: '1-0',
+              route: '/math/tree'
+            },
             {
               title: '垂线',
               id: '1-1',
@@ -88,7 +93,7 @@ export default defineComponent({
           ]
         },
         {
-          title: '基础',
+          title: 'WebGL基础',
           id: 4,
           children: [
             {

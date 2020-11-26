@@ -12,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/math/line',
     children: [
       {
+        path: 'tree',
+        component: () => import(/* webpackChunkName: "tree" */ '../views/math/tree/index.vue')
+      },
+      {
         path: 'line',
         component: () => import(/* webpackChunkName: "line" */ '../views/math/line/Line.vue')
       },
