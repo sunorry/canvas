@@ -17,6 +17,7 @@ export default class Timing {
   get p() {
     const progress = Math.min(this.time / this.duration, this.iterations)
     return this.isFinished ? 1 : progress % 1
+    // return  progress % 1
   }
 
   get isFinished() {

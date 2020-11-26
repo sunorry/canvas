@@ -1,12 +1,26 @@
 <template>
-  <div class="bird"></div>
-  <div ref="block" class="sq"></div>
-  <div ref="time" class="sq"></div>
+  <div>
+    固定帧动画:css animation
+    <div class="bird"></div>
+  </div>
+  <div>
+    增量动画: requestAnimationFrame rotaiton++
+    <div ref="block" class="sq"></div>
+  </div>
+  <div>
+    时序动画: requestAnimationFrame(update)，按照时间计算旋转角度
+    <div ref="time" class="sq">update</div>
+  </div>
   <div class="container">
+    准动画模型，Timing 处理时间，Animator 控制动画过程
     <div class="block"></div>
     <div class="block"></div>
     <div class="block"></div>
     <div class="block"></div>
+  </div>
+  <div>
+    插值
+    <div ref="cz" class="sq" @click="czAnim" style="position: absolute">123</div>
   </div>
 </template>
 
@@ -19,6 +33,24 @@ export default defineComponent({
   setup() {
     const block = ref<HTMLDivElement>()
     const time = ref<HTMLDivElement>()
+    const cz = ref<HTMLDivElement>()
+
+    function czAnim() {
+      const block = cz.value!
+      const animator = new Animator({ duration: 300, iterations: 1 })
+      animator.animate(
+        {
+          el: block,
+          start: 100,
+          end: 400
+        },
+        ({ target, timing }: { target: any; timing: any }) => {
+          const left = target.start * (1 - timing.p) + target.end * timing.p
+          target.el.style.left = `${left}px`
+          console.log(target.el, left)
+        }
+      )
+    }
 
     onMounted(() => {
       const blockEl = block.value!
@@ -42,21 +74,25 @@ export default defineComponent({
       update()
 
       const blocks = document.querySelectorAll('.block')
-      const animator = new Animator({ duration: 1000, iterations: 3 })
+      const animator = new Animator({ duration: 1000, iterations: 1.1 })
       ;(async function() {
         let i = 0
         // eslint-disable-next-line no-constant-condition
         while (true) {
-          await animator.animate(blocks[i++ % 4], ({ target, timing }: { target: any; timing: any }) => {
+          await animator.animate(blocks[i++ % 4], ({ target, timing }: { target: HTMLDivElement; timing: any }) => {
             target.style.transform = `rotate(${timing.p * 360}deg)`
           })
         }
       })()
+
+      // 插值
     })
 
     return {
       block,
-      time
+      time,
+      cz,
+      czAnim
     }
   }
 })
