@@ -87,8 +87,13 @@ export default defineComponent({
           children: [
             {
               title: '简单动画',
-              id: '3-2',
+              id: '3-1',
               route: '/advicedVision/simpleAnim'
+            },
+            {
+              title: '简单3D',
+              id: '3-2',
+              route: '/advicedVision/simple3D'
             }
           ]
         },

@@ -1,43 +1,43 @@
 <template>
-<div>
   <div>
-    固定帧动画:css animation
-    <div class="bird"></div>
-  </div>
-  <div>
-    增量动画: requestAnimationFrame rotaiton++
-    <div ref="block" class="sq"></div>
-  </div>
-  <div>
-    时序动画: requestAnimationFrame(update)，按照时间计算旋转角度
-    <div ref="time" class="sq">update</div>
-  </div>
-  <div class="container">
-    准动画模型，Timing 处理时间，Animator 控制动画过程
-    <div class="block"></div>
-    <div class="block"></div>
-    <div class="block"></div>
-    <div class="block"></div>
-  </div>
-  <div>
-    插值: 点击运行
-    <div class="sqw">
-      <div ref="cz" class="sq" @click="czAnim" style="position: absolute"></div>
+    <div>
+      固定帧动画:css animation
+      <div class="bird"></div>
+    </div>
+    <div>
+      增量动画: requestAnimationFrame rotaiton++
+      <div ref="block" class="sq"></div>
+    </div>
+    <div>
+      时序动画: requestAnimationFrame(update)，按照时间计算旋转角度
+      <div ref="time" class="sq">update</div>
+    </div>
+    <div class="container">
+      准动画模型，Timing 处理时间，Animator 控制动画过程
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <div>
+      插值: 点击运行
+      <div class="sqw">
+        <div ref="cz" class="sq" @click="czAnim" style="position: absolute"></div>
+      </div>
+    </div>
+    <div>
+      加速：点击运行
+      <div style="position: relative" class="sqw">
+        <div ref="js" class="sq" @click="jsAnim" style="position: absolute"></div>
+      </div>
+    </div>
+    <div>
+      减速：点击运行
+      <div style="position: relative" class="sqw">
+        <div ref="jsd" class="sq" @click="jsdAnim" style="position: absolute"></div>
+      </div>
     </div>
   </div>
-  <div>
-    加速：点击运行
-    <div style="position: relative" class="sqw">
-      <div ref="js" class="sq" @click="jsAnim" style="position: absolute"></div>
-    </div>
-  </div>
-  <div>
-    减速：点击运行
-    <div style="position: relative" class="sqw">
-      <div ref="jsd" class="sq" @click="jsdAnim" style="position: absolute"></div>
-    </div>
-  </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -98,7 +98,7 @@ export default defineComponent({
           end: 800
         },
         ({ target, timing }: { target: any; timing: any }) => {
-          const p = timing.p * ( 2 - timing.p)
+          const p = timing.p * (2 - timing.p)
           const left = target.start * (1 - p) + target.end * p
           target.el.style.left = `${left}px`
           console.log(target.el, left)

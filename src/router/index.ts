@@ -68,6 +68,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'simpleAnim',
         component: () => import(/* webpackChunkName: "simpleAnim" */ '../views/advancedVision/simpleAnim/index.vue')
+      },
+      {
+        path: 'simple3D',
+        component: () => import(/* webpackChunkName: "simple3D" */ '../views/advancedVision/simple3D/index.vue')
       }
     ]
   },
