@@ -97,6 +97,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "2DTranslate" */ '../views/base/2DTranslate/index.vue')
       }
     ]
+  },
+  {
+    path: '/performance',
+    component: () => import('../views/performance/index.vue'),
+    redirect: 'performance/compare',
+    children: [
+      {
+        path: 'compare',
+        component: () => import(/* webpackChunkName: "compare" */ '../views/performance/compare/index.vue')
+      }
+    ]
   }
 
   // {

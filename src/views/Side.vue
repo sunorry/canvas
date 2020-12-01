@@ -122,6 +122,17 @@ export default defineComponent({
               route: '/base/2DTranslate'
             }
           ]
+        },
+        {
+          title: '性能',
+          id: 5,
+          children: [
+            {
+              title: 'compare',
+              id: '5-1',
+              route: '/performance/compare'
+            }
+          ]
         }
       ]
     }
