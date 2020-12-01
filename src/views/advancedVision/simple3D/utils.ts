@@ -40,15 +40,33 @@ export function cube(size = 1.0, colors = [[1, 0, 0, 1]]) {
 export function fromRotation(rotationX: number, rotationY: number, rotationZ: number) {
   let c = Math.cos(rotationX)
   let s = Math.sin(rotationX)
-  const rx = [1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1]
+  // prettier-ignore
+  const rx = [
+    1, 0, 0, 0,
+    0, c, s, 0,
+    0, -s, c, 0,
+    0, 0, 0, 1
+  ]
 
   c = Math.cos(rotationY)
   s = Math.sin(rotationY)
-  const ry = [c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1]
+  // prettier-ignore
+  const ry = [
+    c, 0, s, 0,
+    0, 1, 0, 0,
+    -s, 0, c, 0,
+    0, 0, 0, 1
+  ]
 
   c = Math.cos(rotationZ)
   s = Math.sin(rotationZ)
-  const rz = [c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+  // prettier-ignore
+  const rz = [
+    c, s, 0, 0,
+    -s, c, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  ]
 
   const ret: never[] = []
   multiply(ret, rx, ry)

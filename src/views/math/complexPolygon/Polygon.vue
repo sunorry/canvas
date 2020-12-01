@@ -1,5 +1,6 @@
 <template>
   <canvas width="512" height="512" ref="canvas" class="canvas"></canvas>
+  使用叉积和三角剖分判断
   <canvas width="512" height="512" ref="webgl" class="webgl"></canvas>
 </template>
 

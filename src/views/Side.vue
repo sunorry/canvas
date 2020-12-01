@@ -94,6 +94,11 @@ export default defineComponent({
               title: '简单3D',
               id: '3-2',
               route: '/advicedVision/simple3D'
+            },
+            {
+              title: 'camera',
+              id: '3-3',
+              route: '/advicedVision/camera'
             }
           ]
         },

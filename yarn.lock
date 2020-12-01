@@ -6160,6 +6160,11 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.npm.taobao.org/obuf/download/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha1-Cb6jND1BhZ69RGKS0RydTbYZCE4=
 
+ogl@0.0.59:
+  version "0.0.59"
+  resolved "https://registry.npm.taobao.org/ogl/download/ogl-0.0.59.tgz#544f8e02b4607c46e17cd64c2cce577595ef887d"
+  integrity sha1-VE+OArRgfEbhfNZMLM5XdZXviH0=
+
 on-finished@~2.3.0:
   version "2.3.0"
   resolved "https://registry.npm.taobao.org/on-finished/download/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"

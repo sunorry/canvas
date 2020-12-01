@@ -11,3 +11,5 @@ declare module 'earcut'
 declare module 'tess2'
 
 declare module 'gl-renderer'
+
+declare module 'ogl'
