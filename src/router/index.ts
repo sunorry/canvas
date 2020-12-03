@@ -108,8 +108,29 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "compare" */ '../views/performance/compare/index.vue')
       }
     ]
+  },
+  {
+    path: '/data',
+    component: () => import('../views/data/index.vue'),
+    redirect: 'data/qChart',
+    children: [
+      {
+        path: 'qChart',
+        component: () => import(/* webpackChunkName: "qChart" */ '../views/data/qChart/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/demo',
+    component: () => import('../views/demo/index.vue'),
+    redirect: 'data/base',
+    children: [
+      {
+        path: 'base',
+        component: () => import(/* webpackChunkName: "qChart" */ '../views/demo/base/index.vue')
+      }
+    ]
   }
-
   // {
   //   path: "/about",
   //   name: "About",

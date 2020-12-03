@@ -133,6 +133,28 @@ export default defineComponent({
               route: '/performance/compare'
             }
           ]
+        },
+        {
+          title: '数据',
+          id: 6,
+          children: [
+            {
+              title: 'qChart',
+              id: '6-1',
+              route: '/data/qChart'
+            }
+          ]
+        },
+        {
+          title: 'demo',
+          id: 7,
+          children: [
+            {
+              title: '基础',
+              id: '7-1',
+              route: '/demo/base'
+            }
+          ]
         }
       ]
     }

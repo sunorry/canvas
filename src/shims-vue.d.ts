@@ -13,3 +13,5 @@ declare module 'tess2'
 declare module 'gl-renderer'
 
 declare module 'ogl'
+
+declare module '@qcharts/core'

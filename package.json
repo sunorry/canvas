@@ -12,10 +12,14 @@
     "start": "npm run serve"
   },
   "dependencies": {
+    "@qcharts/core": "1.0.34",
+    "@types/d3": "6.2.0",
     "core-js": "^3.6.5",
+    "d3": "6.2.0",
     "earcut": "2.2.2",
     "gl-renderer": "0.13.6",
     "ogl": "0.0.59",
+    "spritejs": "3.7.28",
     "tess2": "1.0.0",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
