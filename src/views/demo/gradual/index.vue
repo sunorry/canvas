@@ -33,17 +33,17 @@ function createBuffer(gl: WebGLRenderingContext, attribute: number, size: number
 function randomColor() {
   return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
 }
-function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
-  const gl = ref<WebGLRenderingContext>()
-  onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
-  return gl
-}
+// function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
+//   const gl = ref<WebGLRenderingContext>()
+//   onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
+//   return gl
+// }
 
 function getGL(canvas: HTMLCanvasElement) {
   return canvas.getContext('webgl')!
 }
 export default defineComponent({
-  name: 'base',
+  name: 'gradual',
   setup() {
     const canvas = ref<HTMLCanvasElement>()
 
@@ -54,17 +54,26 @@ export default defineComponent({
       const program = createProgram(gl, vertexShader, fragmentShader)
 
       const a_Screen_Size = gl.getAttribLocation(program, 'a_Screen_Size')
-      // const a_Position = gl.getAttribLocation(program, 'a_Position')
-      // const a_Color = gl.getAttribLocation(program, 'a_Color')
+      const a_Position = gl.getAttribLocation(program, 'a_Position')
+      const a_Color = gl.getAttribLocation(program, 'a_Color')
+      const positionBuffer = createBuffer(gl, a_Position, 2)
+      const colorBuffer = createBuffer(gl, a_Color, 4)
 
-      const positionBuffer = gl.createBuffer()
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-
-      gl.clearColor(0.0, 0.0, 0.0, 1.0)
+      const positions: number[] = [0, 0, 100, 0, 0, 100]
+      const colors: number[] = [...randomColor(), ...randomColor(), ...randomColor()]
+      gl.clearColor(0, 0, 0, 1)
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.useProgram(program)
 
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
+
       gl.vertexAttrib2f(a_Screen_Size, canvas.value!.width, canvas.value!.height)
+
+      gl.drawArrays(gl.TRIANGLES, 0, positions.length / 2)
     })
     return {
       canvas
@@ -72,3 +81,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+canvas {
+  width: 512px;
+  height: 512px;
+}
+</style>

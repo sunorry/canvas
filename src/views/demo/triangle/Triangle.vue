@@ -21,11 +21,11 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   gl.linkProgram(program)
   return program
 }
-function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
-  const gl = ref<WebGLRenderingContext>()
-  onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
-  return gl
-}
+// function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
+//   const gl = ref<WebGLRenderingContext>()
+//   onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
+//   return gl
+// }
 
 function getGL(canvas: HTMLCanvasElement) {
   return canvas.getContext('webgl')!

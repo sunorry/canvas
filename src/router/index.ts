@@ -136,6 +136,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'lines',
         component: () => import(/* webpackChunkName: "lines" */ '../views/demo/lines/Lines.vue')
+      },
+      {
+        path: 'gradual',
+        component: () => import(/* webpackChunkName: "gradual" */ '../views/demo/gradual/index.vue')
       }
     ]
   }

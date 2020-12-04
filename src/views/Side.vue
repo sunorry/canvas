@@ -163,6 +163,11 @@ export default defineComponent({
               title: 'lines',
               id: '7-3',
               route: '/demo/lines'
+            },
+            {
+              title: 'gradual',
+              id: '7-4',
+              route: '/demo/gradual'
             }
           ]
         }
