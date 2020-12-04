@@ -123,11 +123,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/demo',
     component: () => import('../views/demo/index.vue'),
-    redirect: 'data/base',
+    redirect: 'data/points',
     children: [
       {
-        path: 'base',
-        component: () => import(/* webpackChunkName: "qChart" */ '../views/demo/base/index.vue')
+        path: 'points',
+        component: () => import(/* webpackChunkName: "points" */ '../views/demo/points/index.vue')
+      },
+      {
+        path: 'triangle',
+        component: () => import(/* webpackChunkName: "triangle" */ '../views/demo/triangle/Triangle.vue')
+      },
+      {
+        path: 'lines',
+        component: () => import(/* webpackChunkName: "lines" */ '../views/demo/lines/Lines.vue')
       }
     ]
   }

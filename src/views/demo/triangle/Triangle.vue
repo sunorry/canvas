@@ -21,10 +21,6 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   gl.linkProgram(program)
   return program
 }
-
-function randomColor() {
-  return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
-}
 function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
   const gl = ref<WebGLRenderingContext>()
   onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
@@ -35,7 +31,7 @@ function getGL(canvas: HTMLCanvasElement) {
   return canvas.getContext('webgl')!
 }
 export default defineComponent({
-  name: 'base',
+  name: 'triangle',
   setup() {
     const canvas = ref<HTMLCanvasElement>()
 
@@ -45,6 +41,26 @@ export default defineComponent({
       const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragment)
       const program = createProgram(gl, vertexShader, fragmentShader)
       gl.useProgram(program)
+
+      gl.clearColor(0.0, 0.0, 0.0, 1.0)
+      //用上一步设置的清空画布颜色清空画布。
+      gl.clear(gl.COLOR_BUFFER_BIT)
+
+      // prettier-ignore
+      const positions = [
+        1, 0,
+        0, 1,
+        0, 0
+      ]
+      const a_Position = gl.getAttribLocation(program, 'a_Position')
+      // 现在要传很多个点，所以必须依赖 buffer
+      const buffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+
+      gl.enableVertexAttribArray(a_Position)
+      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0)
+      gl.drawArrays(gl.TRIANGLES, 0, positions.length / 2)
     })
     return {
       canvas

@@ -150,9 +150,19 @@ export default defineComponent({
           id: 7,
           children: [
             {
-              title: '基础',
+              title: 'points',
               id: '7-1',
-              route: '/demo/base'
+              route: '/demo/points'
+            },
+            {
+              title: 'triangle',
+              id: '7-2',
+              route: '/demo/triangle'
+            },
+            {
+              title: 'lines',
+              id: '7-3',
+              route: '/demo/lines'
             }
           ]
         }

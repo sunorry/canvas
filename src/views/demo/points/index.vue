@@ -40,7 +40,7 @@ function randomColor() {
 }
 
 export default defineComponent({
-  name: 'base_',
+  name: 'points',
   setup() {
     const canvas = ref<HTMLCanvasElement>()
     const gl = useGL(canvas)
@@ -68,7 +68,6 @@ export default defineComponent({
       for (let i = 0; i < points.length; i++) {
         const point = points[i]
         const color = point.color
-        console.log(u_Color.value!)
         safeGL.uniform4f(u_Color.value!, color[0], color[1], color[2], color[3])
         safeGL.vertexAttrib2f(a_Position.value!, point.x, point.y)
         safeGL.drawArrays(safeGL.POINTS, 0, 1)
@@ -105,7 +104,6 @@ export default defineComponent({
       gl.useProgram(program)
       //设置清空画布颜色为黑色。
       gl.clearColor(0.0, 0.0, 0.0, 1.0)
-
       //用上一步设置的清空画布颜色清空画布。
       gl.clear(gl.COLOR_BUFFER_BIT)
 
