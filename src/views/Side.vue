@@ -168,6 +168,11 @@ export default defineComponent({
               title: 'gradual',
               id: '7-4',
               route: '/demo/gradual'
+            },
+            {
+              title: 'rect',
+              id: '7-5',
+              route: '/demo/rect'
             }
           ]
         }

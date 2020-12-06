@@ -22,13 +22,13 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   return program
 }
 
-function createBuffer(gl: WebGLRenderingContext, attribute: number, size: number) {
-  gl.enableVertexAttribArray(attribute)
-  const buffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-  gl.vertexAttribPointer(attribute, size, gl.FLOAT, false, 0, 0)
-  return buffer
-}
+// function createBuffer(gl: WebGLRenderingContext, attribute: number, size: number) {
+//   gl.enableVertexAttribArray(attribute)
+//   const buffer = gl.createBuffer()
+//   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+//   gl.vertexAttribPointer(attribute, size, gl.FLOAT, false, 0, 0)
+//   return buffer
+// }
 
 function randomColor() {
   return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]

@@ -140,6 +140,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'gradual',
         component: () => import(/* webpackChunkName: "gradual" */ '../views/demo/gradual/index.vue')
+      },
+      {
+        path: 'rect',
+        component: () => import(/* webpackChunkName: "rect" */ '../views/demo/rect/Rect.vue')
       }
     ]
   }
