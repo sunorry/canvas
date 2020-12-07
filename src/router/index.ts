@@ -148,6 +148,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'circle',
         component: () => import(/* webpackChunkName: "circle" */ '../views/demo/circle/index.vue')
+      },
+      {
+        path: 'texture',
+        component: () => import(/* webpackChunkName: "texture" */ '../views/demo/texture/index.vue')
       }
     ]
   }

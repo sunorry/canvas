@@ -15,3 +15,5 @@ declare module 'gl-renderer'
 declare module 'ogl'
 
 declare module '@qcharts/core'
+
+declare module '*.jpeg'

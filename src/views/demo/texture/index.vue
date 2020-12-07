@@ -3,9 +3,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
+// import img from './timg.jpeg'
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type)!
@@ -42,24 +43,8 @@ function randomColor() {
 function getGL(canvas: HTMLCanvasElement) {
   return canvas.getContext('webgl')!
 }
-function createCircleVertex(x: number, y: number, radius: number, n: number) {
-  const positions = [x, y]
-  for (let i = 0; i <= n; i++) {
-    const angle = (Math.PI * 2 * i) / n
-    // prettier-ignore
-    positions.push(
-      x + radius * Math.cos(angle),
-      y + radius * Math.sin(angle),
-      // 255,
-      // 0,
-      // 0,
-      // 1
-    )
-  }
-  return positions
-}
 export default defineComponent({
-  name: 'circles',
+  name: 'texture',
   setup() {
     const canvas = ref<HTMLCanvasElement>()
 
@@ -69,26 +54,39 @@ export default defineComponent({
       const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragment)
       const program = createProgram(gl, vertexShader, fragmentShader)
 
-      const a_Screen_Size = gl.getAttribLocation(program, 'a_Screen_Size')
-      // const u_color = gl.getUniformLocation(program, 'u_Color')
       const a_Position = gl.getAttribLocation(program, 'a_Position')
-      // const color = randomColor()
-      const positions = createCircleVertex(100, 100, 50, 50)
-      const positionBuffer = gl.createBuffer()
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+      const a_Uv = gl.getAttribLocation(program, 'a_Uv')
+      const u_Texture = gl.getUniformLocation(program, 'u_Texture')
+      const u_Screen_Size = gl.getUniformLocation(program, 'u_Screen_Size')
+
+      // prettier-ignore
+      const positions = [
+        30, 30, 0, 0,    //V0
+        30, 300, 0, 1,   //V1
+        300, 300, 1, 1,  //V2
+        30, 30, 0, 0,    //V0
+        300, 300, 1, 1,  //V2
+        300, 30, 1, 0    //V3
+      ]
+      const color = randomColor()
+      // const a_Color = gl.getAttribLocation(program, 'a_Color')
+
+      const buffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
 
       gl.clearColor(0.0, 0.0, 0.0, 1.0)
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.useProgram(program)
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
       gl.enableVertexAttribArray(a_Position)
-      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0)
+      gl.enableVertexAttribArray(a_Uv)
 
-      gl.vertexAttrib2f(a_Screen_Size, canvas.value!.width, canvas.value!.height)
-      // gl.uniform4f(u_color, color[0], color[1], color[2], color[3])
-      gl.drawArrays(gl.TRIANGLE_FAN, 0, positions.length / 2)
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 16, 0)
+      gl.vertexAttribPointer(a_Uv, 2, gl.FLOAT, false, 16, 8)
+
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+      gl.uniform2f(u_Screen_Size, canvas.value!.width, canvas.value!.height)
     })
     return {
       canvas
@@ -96,10 +94,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-canvas {
-  width: 512px;
-  height: 512px;
-}
-</style>

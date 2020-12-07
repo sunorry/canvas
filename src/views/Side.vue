@@ -178,6 +178,11 @@ export default defineComponent({
               title: 'circle',
               id: '7-6',
               route: '/demo/circle'
+            },
+            {
+              title: '纹理',
+              id: '7-7',
+              route: '/demo/texture'
             }
           ]
         }
