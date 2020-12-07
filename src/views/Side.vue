@@ -173,6 +173,11 @@ export default defineComponent({
               title: 'rect',
               id: '7-5',
               route: '/demo/rect'
+            },
+            {
+              title: 'circle',
+              id: '7-6',
+              route: '/demo/circle'
             }
           ]
         }

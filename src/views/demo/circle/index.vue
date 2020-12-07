@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, Ref } from 'vue'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
 
@@ -30,9 +30,9 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
 //   return buffer
 // }
 
-// function randomColor() {
-//   return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
-// }
+function randomColor() {
+  return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
+}
 // function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
 //   const gl = ref<WebGLRenderingContext>()
 //   onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
@@ -42,8 +42,24 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
 function getGL(canvas: HTMLCanvasElement) {
   return canvas.getContext('webgl')!
 }
+function createCircleVertex(x: number, y: number, radius: number, n: number) {
+  const positions = [x, y]
+  for (let i = 0; i <= n; i++) {
+    const angle = (Math.PI * 2 * i) / n
+    // prettier-ignore
+    positions.push(
+      x + radius * Math.cos(angle),
+      y + radius * Math.sin(angle),
+      // 255,
+      // 0,
+      // 0,
+      // 1
+    )
+  }
+  return positions
+}
 export default defineComponent({
-  name: 'rect',
+  name: 'circles',
   setup() {
     const canvas = ref<HTMLCanvasElement>()
 
@@ -54,46 +70,25 @@ export default defineComponent({
       const program = createProgram(gl, vertexShader, fragmentShader)
 
       const a_Screen_Size = gl.getAttribLocation(program, 'a_Screen_Size')
+      // const u_color = gl.getUniformLocation(program, 'u_Color')
       const a_Position = gl.getAttribLocation(program, 'a_Position')
-      const a_Color = gl.getAttribLocation(program, 'a_Color')
+      // const color = randomColor()
+      const positions = createCircleVertex(100, 100, 50, 50)
+      const positionBuffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
       gl.clearColor(0.0, 0.0, 0.0, 1.0)
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.useProgram(program)
 
       gl.enableVertexAttribArray(a_Position)
-      gl.enableVertexAttribArray(a_Color)
-
-      const positionBuffer = gl.createBuffer()
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-      const indicesBuffer = gl.createBuffer()
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesBuffer)
-
-      // prettier-ignore
-      const positions = [
-        30, 30, 255, 0, 0, 1,    //V0
-        30, 300, 255, 0, 0, 1,   //V1
-        300, 300, 255, 0, 0, 1,  //V2
-        300, 30, 0, 255, 0, 1    //V3
-      ]
-
-      // prettier-ignore
-      const indices = [
-        0, 1, 2,
-        0, 2, 3
-      ]
-
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0)
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesBuffer)
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW)
-
-      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 24, 0)
-      gl.vertexAttribPointer(a_Color, 4, gl.FLOAT, false, 24, 8)
       gl.vertexAttrib2f(a_Screen_Size, canvas.value!.width, canvas.value!.height)
-      // gl.drawArrays(gl.TRIANGLES, 0, positions.length / 6)
-      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0)
+      // gl.uniform4f(u_color, color[0], color[1], color[2], color[3])
+      gl.drawArrays(gl.TRIANGLE_FAN, 0, positions.length / 2)
     })
     return {
       canvas
@@ -101,3 +96,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+canvas {
+  width: 512px;
+  height: 512px;
+}
+</style>
