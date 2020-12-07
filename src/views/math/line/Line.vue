@@ -151,6 +151,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 canvas {
+  width: 1024px;
+  height: 512px;
   border: 1px solid #ccc;
   margin-top: 50px;
 }
