@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
 
@@ -72,3 +72,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+canvas {
+  width: 512px;
+  height: 512px;
+}
+</style>

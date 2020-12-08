@@ -183,6 +183,11 @@ export default defineComponent({
               title: '纹理',
               id: '7-7',
               route: '/demo/texture'
+            },
+            {
+              title: 'tpl',
+              id: '7-8',
+              route: '/demo/tpl'
             }
           ]
         }

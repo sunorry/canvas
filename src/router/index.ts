@@ -152,6 +152,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'texture',
         component: () => import(/* webpackChunkName: "texture" */ '../views/demo/texture/index.vue')
+      },
+      {
+        path: 'tpl',
+        component: () => import(/* webpackChunkName: "tpl" */ '../views/demo/tpl/index.vue')
       }
     ]
   }
