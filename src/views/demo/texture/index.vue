@@ -6,7 +6,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
-// import img from './timg.jpeg'
+import img from './timg.jpeg'
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type)!
@@ -23,21 +23,8 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   return program
 }
 
-// function createBuffer(gl: WebGLRenderingContext, attribute: number, size: number) {
-//   gl.enableVertexAttribArray(attribute)
-//   const buffer = gl.createBuffer()
-//   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-//   gl.vertexAttribPointer(attribute, size, gl.FLOAT, false, 0, 0)
-//   return buffer
-// }
-
-function randomColor() {
-  return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
-}
-// function useGL(canvas: Ref<HTMLCanvasElement | undefined>) {
-//   const gl = ref<WebGLRenderingContext>()
-//   onMounted(() => (gl.value = canvas.value!.getContext('webgl')!))
-//   return gl
+// function randomColor() {
+//   return [Math.random() * 255, Math.random() * 255, Math.random() * 255, 1]
 // }
 
 function getGL(canvas: HTMLCanvasElement) {
@@ -68,8 +55,6 @@ export default defineComponent({
         300, 300, 1, 1,  //V2
         300, 30, 1, 0    //V3
       ]
-      const color = randomColor()
-      // const a_Color = gl.getAttribLocation(program, 'a_Color')
 
       const buffer = gl.createBuffer()
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
@@ -82,11 +67,21 @@ export default defineComponent({
       gl.enableVertexAttribArray(a_Uv)
 
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
       gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 16, 0)
       gl.vertexAttribPointer(a_Uv, 2, gl.FLOAT, false, 16, 8)
 
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
       gl.uniform2f(u_Screen_Size, canvas.value!.width, canvas.value!.height)
+
+      gl.activeTexture(gl.TEXTURE0)
+      const texture = gl.createTexture()
+      gl.bindTexture(gl.TEXTURE_2D, texture)
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
+      gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+      gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+      gl.uniform1i(u_Texture, 0)
+
+      gl.drawArrays(gl.TRIANGLES, 0, positions.length / 4)
     })
     return {
       canvas
@@ -94,3 +89,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+canvas {
+  height: 512px;
+  width: 512px;
+}
+</style>
