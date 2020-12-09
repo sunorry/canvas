@@ -154,6 +154,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "texture" */ '../views/demo/texture/index.vue')
       },
       {
+        path: 'cube',
+        component: () => import(/* webpackChunkName: "cube" */ '../views/demo/cube/index.vue')
+      },
+      {
         path: 'tpl',
         component: () => import(/* webpackChunkName: "tpl" */ '../views/demo/tpl/index.vue')
       }

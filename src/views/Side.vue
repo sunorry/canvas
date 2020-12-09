@@ -185,8 +185,13 @@ export default defineComponent({
               route: '/demo/texture'
             },
             {
-              title: 'tpl',
+              title: 'cube',
               id: '7-8',
+              route: '/demo/cube'
+            },
+            {
+              title: 'tpl',
+              id: '7-18',
               route: '/demo/tpl'
             }
           ]
