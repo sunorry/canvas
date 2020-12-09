@@ -17,3 +17,4 @@ declare module 'ogl'
 declare module '@qcharts/core'
 
 declare module '*.jpeg'
+declare module '*.jpg'

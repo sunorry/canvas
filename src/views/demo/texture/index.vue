@@ -6,7 +6,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
-import img from './timg.jpeg'
+import imgLink from './wave.jpg'
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type)!
@@ -73,15 +73,18 @@ export default defineComponent({
 
       gl.uniform2f(u_Screen_Size, canvas.value!.width, canvas.value!.height)
 
-      gl.activeTexture(gl.TEXTURE0)
-      const texture = gl.createTexture()
-      gl.bindTexture(gl.TEXTURE_2D, texture)
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
-      gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
-      gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
-      gl.uniform1i(u_Texture, 0)
-
-      gl.drawArrays(gl.TRIANGLES, 0, positions.length / 4)
+      const img = new Image()
+      img.src = imgLink
+      img.onload = function() {
+        gl.activeTexture(gl.TEXTURE0)
+        const texture = gl.createTexture()
+        gl.bindTexture(gl.TEXTURE_2D, texture)
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
+        gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+        gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+        gl.uniform1i(u_Texture, 0)
+        gl.drawArrays(gl.TRIANGLES, 0, positions.length / 4)
+      }
     })
     return {
       canvas
