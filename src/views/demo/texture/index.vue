@@ -60,7 +60,6 @@ export default defineComponent({
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
 
       gl.clearColor(0.0, 0.0, 0.0, 1.0)
-      gl.clear(gl.COLOR_BUFFER_BIT)
       gl.useProgram(program)
 
       gl.enableVertexAttribArray(a_Position)
@@ -74,7 +73,7 @@ export default defineComponent({
       gl.uniform2f(u_Screen_Size, canvas.value!.width, canvas.value!.height)
 
       const img = new Image()
-      img.src = imgLink
+      img.crossOrigin = 'anonymous'
       img.onload = function() {
         gl.activeTexture(gl.TEXTURE0)
         const texture = gl.createTexture()
@@ -83,8 +82,10 @@ export default defineComponent({
         gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
         gl.texParameterf(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
         gl.uniform1i(u_Texture, 0)
+        gl.clear(gl.COLOR_BUFFER_BIT)
         gl.drawArrays(gl.TRIANGLES, 0, positions.length / 4)
       }
+      img.src = imgLink
     })
     return {
       canvas
