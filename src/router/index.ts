@@ -121,9 +121,20 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/three',
+    component: () => import('../views/three/index.vue'),
+    redirect: 'three/hello',
+    children: [
+      {
+        path: 'hello',
+        component: () => import(/* webpackChunkName: "hello" */ '../views/three/hello/index.vue')
+      }
+    ]
+  },
+  {
     path: '/demo',
     component: () => import('../views/demo/index.vue'),
-    redirect: 'data/points',
+    redirect: 'demo/points',
     children: [
       {
         path: 'points',

@@ -124,6 +124,17 @@ export default defineComponent({
           ]
         },
         {
+          title: 'three',
+          id: 10,
+          children: [
+            {
+              title: 'hello',
+              id: '10-1',
+              route: '/three/hello'
+            }
+          ]
+        },
+        {
           title: '性能',
           id: 5,
           children: [
