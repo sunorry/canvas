@@ -161,6 +161,11 @@ export default defineComponent({
           id: 7,
           children: [
             {
+              title: 'dag',
+              id: '7-0',
+              route: '/demo/dag'
+            },
+            {
               title: 'points',
               id: '7-1',
               route: '/demo/points'

@@ -137,6 +137,10 @@ const routes: Array<RouteRecordRaw> = [
     redirect: 'demo/points',
     children: [
       {
+        path: 'dag',
+        component: () => import(/* webpackChunkName: "dag" */ '../views/demo/dag/DAG.vue')
+      },
+      {
         path: 'points',
         component: () => import(/* webpackChunkName: "points" */ '../views/demo/points/index.vue')
       },

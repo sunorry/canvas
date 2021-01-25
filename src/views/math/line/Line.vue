@@ -13,7 +13,7 @@ export default defineComponent({
   methods: {
     drawBase(ctx: CanvasRenderingContext2D, v0: Vector2D, q: Vector2D, r: Vector2D) {
       this.line(ctx, new Vector2D(0, 0), v0)
-      this.line(ctx, q, r, { strokeStyle: 'blue' })
+      this.line(ctx, q, r, { strokeStyle: '#000' })
 
       this.text(ctx, q, 'Q')
       this.text(ctx, r, 'R')
